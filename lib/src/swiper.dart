@@ -718,11 +718,7 @@ abstract class _SubSwiper extends StatefulWidget {
 
   int getCorrectIndex(int indexNeedsFix) {
     if (itemCount == 0) return 0;
-    var value = indexNeedsFix % itemCount;
-    if (value < 0) {
-      value += itemCount;
-    }
-    return value;
+    return (indexNeedsFix).abs() % itemCount;
   }
 }
 

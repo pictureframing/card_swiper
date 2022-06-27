@@ -72,12 +72,7 @@ abstract class _CustomLayoutStateBase<T extends _SubSwiper> extends State<T>
   }
 
   int _ensureIndex(int index) {
-    var res = index;
-    res = index % widget.itemCount;
-    if (res < 0) {
-      res += widget.itemCount;
-    }
-    return res;
+    return (index).abs() % widget.itemCount;
   }
 
   @override
@@ -102,10 +97,7 @@ abstract class _CustomLayoutStateBase<T extends _SubSwiper> extends State<T>
 
     for (var i = 0; i < _animationCount! && widget.itemCount > 0; ++i) {
       var realIndex = _currentIndex + i + _startIndex;
-      realIndex = realIndex % widget.itemCount;
-      if (realIndex < 0) {
-        realIndex += widget.itemCount;
-      }
+      realIndex = (realIndex).abs() % widget.itemCount;
 
       if (widget.axisDirection == AxisDirection.right) {
         list.insert(0, _buildItem(i, realIndex, animationValue));
@@ -192,7 +184,7 @@ abstract class _CustomLayoutStateBase<T extends _SubSwiper> extends State<T>
         currentIndex: _currentIndex,
         itemCount: widget.itemCount,
         loop: widget.loop,
-        reverse: false,
+        reverse: true,
       );
       _move(event.targetPosition, nextIndex: newIndex);
     } else if (event is MoveIndexControllerEvent) {
